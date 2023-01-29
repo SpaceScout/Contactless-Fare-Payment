@@ -7,6 +7,9 @@ import androidx.appcompat.app.AppCompatActivity;
 //import com.braintreepayments.cardform.view.CardForm;
 
 public class ChangeOplata extends AppCompatActivity {
+    System.out.print(println("piska"))
+
+
     /*@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
