@@ -11,12 +11,11 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity{
 
+    Intent intent;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-        //int theme = sp.getInt("THEME", R.style.L);
-        //setTheme(theme);
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -24,7 +23,7 @@ public class MainActivity extends AppCompatActivity{
         settingsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ActivityTwoSettings.class);
+                Intent intent = new Intent(MainActivity.this, MyAccount.class);
                 startActivity(intent);
             }
         });
@@ -38,5 +37,17 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
+        Button logout = findViewById(R.id.logout);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent = new Intent(MainActivity.this, Login.class);
+                SharedPreferences settings = getSharedPreferences(Login.PREFS_NAME, 0); // 0 - for private mode
+                SharedPreferences.Editor editor = settings.edit();
+                editor.putBoolean("hasLoggedIn", false);
+                editor.apply();
+                startActivity(intent);
+            }
+        });
     }
 }

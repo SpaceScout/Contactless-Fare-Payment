@@ -1,13 +1,10 @@
 package com.example.kvantproject;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,12 +18,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class reg extends AppCompatActivity{
+public class Login extends AppCompatActivity{
     EditText edit_email1, edit_password1;
 
     Intent intent;
@@ -34,11 +33,10 @@ public class reg extends AppCompatActivity{
     private List<User> listData;
 
     public static final String PREFS_NAME = "MyPrefsLogs";
-    public static final String PREFS_NAME2 = "MyPrefsLogin";
-    public SharedPreferences MyPrefsLogin;
     public static final String APP_PREFERENCES = "MyPrefsLogin";
 
     private FirebaseAuth mAuth;
+    private DatabaseReference mDataBase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +47,7 @@ public class reg extends AppCompatActivity{
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent = new Intent(reg.this, reg2.class);
+                intent = new Intent(Login.this, Registr.class);
                 startActivity(intent);
             }
         });
@@ -61,6 +59,7 @@ public class reg extends AppCompatActivity{
 
         listData = new ArrayList<>();
 
+        mDataBase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
     }
 
@@ -68,10 +67,10 @@ public class reg extends AppCompatActivity{
     protected void onResume() {
         super.onResume();
 
-        intent = new Intent(reg.this, MainActivity.class);
+        intent = new Intent(Login.this, MainActivity.class);
 
-        SharedPreferences settings = getSharedPreferences(reg.PREFS_NAME, 0);
-        //Get "hasLoggedIn" value. If the value doesn't exist yet false is returned
+        SharedPreferences settings = getSharedPreferences(Login.PREFS_NAME, 0);
+//        Get "hasLoggedIn" value. If the value doesn't exist yet false is returned
 
         if(settings.getBoolean("hasLoggedIn", false))
         {
@@ -94,21 +93,21 @@ public class reg extends AppCompatActivity{
                     if(task.isSuccessful()){
                         Toast toast = Toast.makeText(getApplicationContext(), "Вы успешно вошли", Toast.LENGTH_SHORT);
                         toast.show();
-                        Intent intent2 = new Intent(reg.this, MainActivity.class);
+                        Intent intent2 = new Intent(Login.this, MainActivity.class);
                         startActivity(intent2);
                         //User has successfully logged in, save this information
                         // We need an Editor object to make preference changes.
-                        SharedPreferences settings = getSharedPreferences(reg.PREFS_NAME, 0); // 0 - for private mode
+                        SharedPreferences settings = getSharedPreferences(Login.PREFS_NAME, 0); // 0 - for private mode
                         SharedPreferences.Editor editor = settings.edit();
                         //Set "hasLoggedIn" to true
                         editor.putBoolean("hasLoggedIn", true);
                         // Commit the edits!
                         editor.apply();
-                        SharedPreferences settings2 = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE); // 0 - for private mode
-                        SharedPreferences.Editor editor2 = settings2.edit();
-                        //Set "hasLoggedIn" to true
-                        editor2.putString("Login",email);
-                        editor2.apply();
+//                        SharedPreferences settings2 = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE); // 0 - for private mode
+//                        SharedPreferences.Editor editor2 = settings2.edit();
+//                        //Set "hasLoggedIn" to true
+//                        editor2.putString("Login",email);
+//                        editor2.apply();
                     }
                     else
                     {

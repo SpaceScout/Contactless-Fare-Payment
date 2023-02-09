@@ -1,14 +1,12 @@
 package com.example.kvantproject;
 
 public class User {
-    public String id, login, password;
+    public String email, password;
+    public int balance;
 
-    public User() {
-    }
-
-    public User( String id, String login, String password) {
-        this.id = id;
-        this.login = login;
+    public User(String email, String password) {
+        this.email = email;
         this.password = password;
+        this.balance = 0;
     }
 }
