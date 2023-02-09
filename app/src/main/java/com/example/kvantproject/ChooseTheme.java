@@ -1,7 +1,6 @@
 package com.example.kvantproject;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -16,11 +15,11 @@ public class ChooseTheme extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.choose_theme);
+        setContentView(R.layout.account);
         Toast toast1 = Toast.makeText(getApplicationContext(), "Выбрана светлая тема", Toast.LENGTH_LONG);
         Toast toast2 = Toast.makeText(getApplicationContext(), "Выбрана темная тема", Toast.LENGTH_LONG);
         //Button light_button = findViewById(R.id.wifiText);
-        Button dark_button = findViewById(R.id.button2);
+        //Button dark_button = findViewById(R.id.button2);
 
         //light_button.setOnClickListener(new View.OnClickListener() {
             //@Override

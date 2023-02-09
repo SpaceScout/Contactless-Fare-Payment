@@ -28,7 +28,7 @@
             android:exported="true">
         </activity>
         <activity
-            android:name=".reg"
+            android:name=".Login"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -46,8 +46,8 @@
             android:name=".wif_p2p_iSearch"
             android:exported="true">
         </activity>
-        <activity android:name=".reg2" />
-        <activity android:name=".ChangeOplata" />
+        <activity android:name=".Registr" />
+        <activity android:name=".MyAccount" />
         <activity android:name=".ver_qr_code" />
     </application>
 

@@ -28,7 +28,7 @@ public class ActivityTwoSettings extends AppCompatActivity {
         changeOplata.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ActivityTwoSettings.this, ChangeOplata.class);
+                Intent intent = new Intent(ActivityTwoSettings.this, MyAccount.class);
                 startActivity(intent);
             }
         });

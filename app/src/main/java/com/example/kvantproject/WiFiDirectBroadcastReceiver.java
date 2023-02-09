@@ -45,7 +45,7 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
             // The peer list has changed! We should probably do something about
             // that.
             if (mManager != null) {
-                Log.println(Log.INFO, "ахуеть", "РОБИТ ААААААААААААААААААААААА");
+                Log.println(Log.INFO, "1", "работает");
                 if (ActivityCompat.checkSelfPermission(mActivity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                    ActivityCompat.requestPermissions(mActivity, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_LOCATION);
                     return;
