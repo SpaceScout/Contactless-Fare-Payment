@@ -21,7 +21,7 @@
     <string name="wifiHint">Введите пароль для выбранной сети</string>
     <string name="ver_code">Предъявите водитю QR код для проверки</string>
     <string name="logout">Выйти</string>
-    <string name="popolnot">Пополнить на 100р</string>
+    <string name="popolnot">Пополнить</string>
 
 
 </resources>
