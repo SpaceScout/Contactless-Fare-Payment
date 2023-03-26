@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ public class MyAccount extends AppCompatActivity {
     private String uid;
     private String balanceStr, NewbalanceStr;
     private Integer balance;
+    EditText add_bal;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -67,8 +69,11 @@ public class MyAccount extends AppCompatActivity {
         popolnit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                add_bal = findViewById(R.id.add_bal);
+                String sum = add_bal.getText().toString();
+                Integer sum2 = Integer.parseInt(sum);
                 final DatabaseReference BalanceRef = MyRefetance.child(uid).child("balance");
-                balance = balance + 100;
+                balance = balance + sum2;
                 BalanceRef.setValue(balance);
                 NewbalanceStr = Integer.toString(balance);
                 user_balance.setText("Balance: " + NewbalanceStr);

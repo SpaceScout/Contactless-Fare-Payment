@@ -23,14 +23,31 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 
 public class wif_p2p_iSearch extends AppCompatActivity {
+
+    private String USER_KEY = "User";
+    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+    final FirebaseDatabase DatabaseReferences = FirebaseDatabase.getInstance();
+    final DatabaseReference MyRefetance = DatabaseReferences.getReference(USER_KEY);
+    private String uid;
+    private String balanceStr, NewbalanceStr;
+    private Integer balance, balance2;
 
     Button btnScan, btn_connect, btn_onOff, btn_qr;
     List<WifiP2pDevice> peers = new ArrayList<WifiP2pDevice>();
@@ -77,7 +94,6 @@ public class wif_p2p_iSearch extends AppCompatActivity {
                     @Override
                     public void onSuccess() {
                         Toast.makeText(getApplicationContext(), "Начался поиск сетей", Toast.LENGTH_SHORT).show();
-                        constat.setText("поиск сетей да");
                     }
 
                     @Override
@@ -120,15 +136,30 @@ public class wif_p2p_iSearch extends AppCompatActivity {
         btn_qr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(wif_p2p_iSearch.this, ver_qr_code.class);
-                startActivity(intent);
+                uid = currentUser.getUid();
+                final DatabaseReference BalanceRef = MyRefetance.child(uid).child("balance");
+                BalanceRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        balance = snapshot.getValue(Integer.class);
+                        balance2 = balance - 100;
+                        BalanceRef.setValue(balance2);
+                        Intent intent = new Intent(wif_p2p_iSearch.this, ver_qr_code.class);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
             }
         });
 
         btnScan = findViewById(R.id.button_scan);
         btn_onOff = findViewById(R.id.button_onOff);
         p2p_list = (ListView) findViewById(R.id.p2p_list);
-        constat = findViewById(R.id.conStat);
 
         wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
